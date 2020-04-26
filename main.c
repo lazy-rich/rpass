@@ -51,6 +51,7 @@ static char punc();
 static void usage(void);
 static int add_set(char (*[])(), char (*)(void), int);
 static unsigned long xstrtoul(const char *);
+static uint32_t xrandindex(const uint32_t);
 
 static char
 upper()
@@ -112,6 +113,18 @@ xstrtoul(const char *str)
 		errx(1, "xstrtoul: value error: %s", str);
 
 	return val;
+}
+
+static uint32_t
+xrandindex(const uint32_t bound)
+{
+	uint32_t val;
+
+	const int rc = get_rand_uint32_t(&val);
+	if (rc == -1)
+		errx(1, "xrandindex");
+
+	return (val % bound);
 }
 
 int
