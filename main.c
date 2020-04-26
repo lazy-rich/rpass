@@ -29,6 +29,14 @@
 #define MINLEN		20	/* minimum password length */
 #define MAXLEN		1024	/* maximum password length */
 #define NSET		4	/* the total number of sets */
+#define UPPERSETSTART	65	/* start of the upper case ascii set */
+#define UPPERSETSZ	26	/* size of the upper case ascii set */
+#define LOWERSETSTART	97	/* start of the lower case ascii set */
+#define LOWERSETSZ	26	/* size of the lower case ascii set */
+#define NUMBERSETSTART	48	/* start of the numeric ascii set */
+#define NUMBERSETSZ	10	/* size of the numeric ascii set */
+#define PUNCSETSTART	33	/* start of the punctuation ascii set */
+#define PUNCSETSZ	15	/* size of the punctuation ascii set */
 
 /* generate a random character in each set */
 static char upper();
@@ -42,25 +50,25 @@ static int add_set(char (*[])(), char (*)(void), int);
 static char
 upper()
 {
-	return arc4random_uniform(26) + 65;
+	return arc4random_uniform(UPPERSETSZ) + UPPERSETSTART;
 }
 
 static char
 lower()
 {
-	return arc4random_uniform(26) + 97;
+	return arc4random_uniform(LOWERSETSZ) + LOWERSETSTART;
 }
 
 static char
 num()
 {
-	return arc4random_uniform(10) + 48;
+	return arc4random_uniform(NUMBERSETSZ) + NUMBERSETSTART;
 }
 
 static char
 punc()
 {
-	return arc4random_uniform(15) + 33;
+	return arc4random_uniform(PUNCSETSZ) + PUNCSETSTART;
 }
 
 static void
