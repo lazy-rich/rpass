@@ -56,25 +56,25 @@ static uint32_t xrandindex(const uint32_t);
 static char
 upper()
 {
-	return arc4random_uniform(UPPERSETSZ) + UPPERSETSTART;
+	return xrandindex(UPPERSETSZ) + UPPERSETSTART;
 }
 
 static char
 lower()
 {
-	return arc4random_uniform(LOWERSETSZ) + LOWERSETSTART;
+	return xrandindex(LOWERSETSZ) + LOWERSETSTART;
 }
 
 static char
 num()
 {
-	return arc4random_uniform(NUMBERSETSZ) + NUMBERSETSTART;
+	return xrandindex(NUMBERSETSZ) + NUMBERSETSTART;
 }
 
 static char
 punc()
 {
-	return arc4random_uniform(PUNCSETSZ) + PUNCSETSTART;
+	return xrandindex(PUNCSETSZ) + PUNCSETSTART;
 }
 
 static void
@@ -179,7 +179,7 @@ main(int argc, char **argv)
 		count = MINLEN;
 	
 	for (size_t i = 0; i < count; ++i) {
-		unsigned int s = wanted == 1 ? 0 : arc4random_uniform(wanted);
+		unsigned int s = wanted == 1 ? 0 : xrandindex(wanted);
 		putchar(set[s]());
 	}
 
