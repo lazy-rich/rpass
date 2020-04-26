@@ -116,9 +116,7 @@ int
 main(int argc, char **argv)
 {
 	int c, wanted;
-	ssize_t count = 0;
-	ssize_t i;
-	const char *errstr;
+	unsigned long count = 0;
 	char (*set[NSET])();
 
 	wanted = 0;
@@ -132,9 +130,12 @@ main(int argc, char **argv)
 			wanted = add_set(set, upper, wanted);
 			break;
 		case 'c':
-			count = strtonum(optarg, MINLEN, MAXLEN, &errstr);
-			if (errstr != NULL)
-				errx(1, "error: %s %s", errstr, optarg);
+			count = xstrtoul(optarg);
+			if (count < MINLEN) {
+				errx(1, "Count must be >= %i", MINLEN);
+			} else if (count > MAXLEN) {
+				errx(1, "Count must be <= %i", MAXLEN);
+			}
 			break;
 		case 'l':
 			wanted = add_set(set, lower, wanted);
@@ -162,7 +163,7 @@ main(int argc, char **argv)
 	if (count == 0)
 		count = MINLEN;
 	
-	for (i = 0; i < count; ++i) {
+	for (size_t i = 0; i < count; ++i) {
 		unsigned int s = wanted == 1 ? 0 : arc4random_uniform(wanted);
 		putchar(set[s]());
 	}
