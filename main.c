@@ -20,6 +20,8 @@
  * SOFTWARE.
  */
 #include <err.h>
+#include <errno.h>
+#include <limits.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -46,6 +48,7 @@ static char punc();
 
 static void usage(void);
 static int add_set(char (*[])(), char (*)(void), int);
+static unsigned long xstrtoul(const char *);
 
 static char
 upper()
@@ -90,6 +93,23 @@ add_set(char (*set[])(), char (*func)(void), int index)
 	set[index] = func;
 
 	return ++index;
+}
+
+unsigned long
+xstrtoul(const char *str)
+{
+	char *endptr;
+	unsigned long val;
+
+	if (str == NULL)
+		errx(1, "xstrtoul: invalid string");
+	errno = 0;
+	val = strtoul(str, &endptr, 10);
+	if ((errno == ERANGE && (val == ULONG_MAX))
+			|| (errno != 0 && val == 0))
+		errx(1, "xstrtoul: value error: %s", str);
+
+	return val;
 }
 
 int
