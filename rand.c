@@ -21,7 +21,7 @@
  */
 #include "rand.h"
 
-#define RANDFILE	"/dev/random"
+#define RANDFILE	"/dev/urandom"
 
 int
 get_rand_uint32_t(uint32_t *res)
