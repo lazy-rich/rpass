@@ -26,8 +26,6 @@
 #include <stdio.h>
 #include <unistd.h>
 
-#include <bsd/stdlib.h>
-
 #include "rand.h"
 
 #define MINLEN		20	/* minimum password length */

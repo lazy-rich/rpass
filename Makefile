@@ -1,5 +1,5 @@
 rpass: rand.o main.c
-	cc -Wall -Wextra main.c rand.o -o rpass -lbsd
+	cc -Wall -Wextra main.c rand.o -o rpass
 rand.o:
 	cc -Wall -Wextra -c rand.c -o rand.o
 clean:
