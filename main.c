@@ -116,7 +116,7 @@ int
 main(int argc, char **argv)
 {
 	int c, wanted;
-	ssize_t nwords = 0;
+	ssize_t count = 0;
 	ssize_t i;
 	const char *errstr;
 	char (*set[NSET])();
@@ -132,7 +132,7 @@ main(int argc, char **argv)
 			wanted = add_set(set, upper, wanted);
 			break;
 		case 'c':
-			nwords = strtonum(optarg, MINLEN, MAXLEN, &errstr);
+			count = strtonum(optarg, MINLEN, MAXLEN, &errstr);
 			if (errstr != NULL)
 				errx(1, "error: %s %s", errstr, optarg);
 			break;
@@ -159,10 +159,10 @@ main(int argc, char **argv)
 	if (wanted == 0)
 		usage();
 
-	if (nwords == 0)
-		nwords = MINLEN;
+	if (count == 0)
+		count = MINLEN;
 	
-	for (i = 0; i < nwords; ++i) {
+	for (i = 0; i < count; ++i) {
 		unsigned int s = wanted == 1 ? 0 : arc4random_uniform(wanted);
 		putchar(set[s]());
 	}
