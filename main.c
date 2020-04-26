@@ -28,6 +28,8 @@
 
 #include <bsd/stdlib.h>
 
+#include "rand.h"
+
 #define MINLEN		20	/* minimum password length */
 #define MAXLEN		1024	/* maximum password length */
 #define NSET		4	/* the total number of sets */
