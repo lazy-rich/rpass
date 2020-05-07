@@ -47,5 +47,5 @@ get_rand_uint32_t(uint32_t *res)
 	close(fd);
 	*res = val;
 
-	return 0;	
+	return 0;
 }
